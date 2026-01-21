@@ -1,0 +1,6 @@
+# Increase upload limits for manga chapters
+php_value upload_max_filesize 210M
+php_value post_max_size 220M
+php_value max_execution_time 300
+php_value max_input_time 300
+php_value memory_limit 512M
