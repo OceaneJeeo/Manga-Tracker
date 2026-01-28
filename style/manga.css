@@ -296,6 +296,35 @@ body {
     z-index: 10;
 }
 
+/* Badge for language */
+.manga-language-badge {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: rgba(59, 130, 246, 0.95);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    font-weight: 600;
+    z-index: 10;
+    line-height: 1;
+}
+
+/* Badge for archive */
+.manga-archive-badge {
+    position: absolute;
+    top: 2.5rem;
+    right: 0.5rem;
+    background: rgba(16, 185, 129, 0.95);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
 .manga-overlay {
     position: absolute;
     bottom: 0;

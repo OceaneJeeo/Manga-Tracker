@@ -11,6 +11,22 @@ let currentMangaChapters = null;
 let deleteChapterId = null;
 
 /**
+ * Language flags mapping.
+ */
+const languageFlags = {
+    'fr': '🇫🇷',
+    'en': '🇬🇧',
+    'ja': '🇯🇵',
+    'es': '🇪🇸',
+    'de': '🇩🇪',
+    'it': '🇮🇹',
+    'pt': '🇵🇹',
+    'ko': '🇰🇷',
+    'zh': '🇨🇳',
+    'other': '🌐'
+};
+
+/**
  * Loads mangas on page load.
  */
 document.addEventListener('DOMContentLoaded', function() {
@@ -178,6 +194,7 @@ function openModal() {
     document.getElementById('mangaForm').reset();
     document.getElementById('mangaId').value = '';
     document.getElementById('status').value = 'reading';
+    document.getElementById('language').value = 'fr';
 }
 
 /**
@@ -203,6 +220,7 @@ async function editManga(id) {
     document.getElementById('readingLink').value = manga.reading_link;
     document.getElementById('currentChapter').value = manga.current_chapter;
     document.getElementById('status').value = manga.status || 'reading';
+    document.getElementById('language').value = manga.language || 'fr';
     document.getElementById('notes').value = manga.notes || '';
     
     document.getElementById('modal').style.display = 'block';
