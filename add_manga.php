@@ -31,6 +31,8 @@ try {
 
     $status = trim($_POST['status'] ?? 'reading');
 
+    $language = trim($_POST['language'] ?? 'fr');
+
     $notes = trim($_POST['notes'] ?? '');
 
     $imageUrl = trim($_POST['imageUrl'] ?? '');
@@ -106,10 +108,10 @@ try {
         $finalImage = $imagePath ?: $imageUrl;
         
         $stmt = $pdo->prepare("
-            INSERT INTO mangas (title, image, reading_link, current_chapter, status, notes, date_added)
-            VALUES (?, ?, ?, ?, ?, ?, NOW())
+            INSERT INTO mangas (title, image, reading_link, current_chapter, status, language, notes, date_added)
+            VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
         ");
-        $stmt->execute([$title, $finalImage, $readingLink, $currentChapter, $status, $notes]);
+        $stmt->execute([$title, $finalImage, $readingLink, $currentChapter, $status, $language, $notes]);
         $id = $pdo->lastInsertId();
     }
 

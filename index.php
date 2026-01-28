@@ -170,6 +170,22 @@ if (isset($_GET['logout'])) {
                             <option value="completed">✅ Completed</option>
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="language">Langue de lecture *</label>
+                        <select name="language" id="language" required>
+                            <option value="fr">🇫🇷 Français</option>
+                            <option value="en">🇬🇧 Anglais</option>
+                            <option value="ja">🇯🇵 Japonais</option>
+                            <option value="es">🇪🇸 Espagnol</option>
+                            <option value="de">🇩🇪 Allemand</option>
+                            <option value="it">🇮🇹 Italien</option>
+                            <option value="pt">🇵🇹 Portugais</option>
+                            <option value="ko">🇰🇷 Coréen</option>
+                            <option value="zh">🇨🇳 Chinois</option>
+                            <option value="other">🌐 Autre</option>
+                        </select>
+                    </div>
                     
                     <div class="form-group">
                         <label for="notes">Personal Notes</label>
