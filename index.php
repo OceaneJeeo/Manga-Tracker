@@ -105,6 +105,21 @@ if (isset($_GET['logout'])) {
                 </div>
             </div>
 
+            <!-- Search Bar -->
+            <div class="search-bar-wrapper">
+                <div class="search-icon">🔍</div>
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search-input"
+                    placeholder="Search a manga by title..."
+                    oninput="filterMangas(this.value)"
+                    autocomplete="off"
+                >
+                <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none;">✕</button>
+            </div>
+            <div id="searchResultsInfo" class="search-results-info" style="display:none;"></div>
+
             <!-- Reading Mangas Section -->
             <div class="section-header">
                 <h2 class="section-title">📖 Currently Reading</h2>

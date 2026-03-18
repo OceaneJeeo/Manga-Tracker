@@ -9,6 +9,7 @@ let mangas = [];
 let deleteId = null;
 let currentMangaChapters = null;
 let deleteChapterId = null;
+let searchQuery = '';
 
 /**
  * Language flags mapping.
@@ -57,15 +58,16 @@ async function loadMangas() {
 /**
  * Renders the mangas in the UI, separating reading and completed ones.
  */
-function renderMangas() {
+function renderMangas(filteredList) {
     const gridReading = document.getElementById('mangaGridReading');
     const gridCompleted = document.getElementById('mangaGridCompleted');
     const emptyState = document.getElementById('emptyState');
+
+    const source = filteredList !== undefined ? filteredList : mangas;
+    const mangasReading = source.filter(m => m.status === 'reading');
+    const mangasCompleted = source.filter(m => m.status === 'completed');
     
-    const mangasReading = mangas.filter(m => m.status === 'reading');
-    const mangasCompleted = mangas.filter(m => m.status === 'completed');
-    
-    if (mangas.length === 0) {
+    if (source.length === 0) {
         gridReading.style.display = 'none';
         gridCompleted.style.display = 'none';
         emptyState.style.display = 'block';
@@ -103,6 +105,9 @@ function renderMangas() {
 function renderMangaCard(manga, isCompleted = false) {
     // Escape apostrophes and quotes for JavaScript
     const jsEscapedTitle = manga.title.replace(/'/g, "\\'").replace(/"/g, '\\"');
+
+    // Get language flag
+    const languageFlag = languageFlags[manga.language || 'fr'] || '🌐';
     
     return `
         <div class="manga-card ${isCompleted ? 'manga-completed' : ''}" onclick="editManga(${manga.id})">
@@ -113,6 +118,8 @@ function renderMangaCard(manga, isCompleted = false) {
                     `<div class="manga-placeholder">📖</div>`
                 }
                 ${isCompleted ? '<div class="manga-badge">✅ Completed</div>' : ''}
+                <div class="manga-language-badge">${languageFlag}</div>
+                ${manga.chapter_count > 0 ? `<div class="manga-chapters-count-badge">📦 ${manga.chapter_count}</div>` : ''}
                 <div class="manga-overlay">
                     ${manga.notes ? escapeHtml(manga.notes.substring(0, 60)) + (manga.notes.length > 60 ? '...' : '') : 'No notes'}
                 </div>
@@ -183,6 +190,45 @@ function formatFileSize(bytes) {
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
     if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
     return (bytes / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
+}
+
+/**
+ * Filters mangas by search query (title or notes).
+ * @param {string} query - The search string.
+ */
+function filterMangas(query) {
+    searchQuery = query.trim().toLowerCase();
+    const clearBtn = document.getElementById('searchClear');
+    const infoEl = document.getElementById('searchResultsInfo');
+
+    clearBtn.style.display = searchQuery ? 'flex' : 'none';
+
+    if (!searchQuery) {
+        infoEl.style.display = 'none';
+        renderMangas();
+        return;
+    }
+
+    const filtered = mangas.filter(m =>
+        m.title.toLowerCase().includes(searchQuery) ||
+        (m.notes && m.notes.toLowerCase().includes(searchQuery))
+    );
+
+    infoEl.style.display = 'block';
+    infoEl.textContent = filtered.length === 0
+        ? `No results for "${query}"`
+        : `${filtered.length} manga${filtered.length > 1 ? 's' : ''} found for "${query}"`;
+
+    renderMangas(filtered);
+}
+
+/**
+ * Clears the search input and resets the manga list.
+ */
+function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    filterMangas('');
+    document.getElementById('searchInput').focus();
 }
 
 /**
