@@ -7,10 +7,13 @@ A personal manga collection management system built with PHP, MySQL, and vanilla
 - **Secure Authentication** - Password-protected access to your collection
 - **Manga Management** - Add, edit, and delete manga entries
 - **Chapter Upload System** - Upload and manage manga chapters as ZIP files
+- **Chapter Count Badge** - See at a glance how many chapters are archived locally for each manga
 - **Reading Progress** - Track current chapter and reading status
 - **Image Support** - Upload cover images or use external URLs
 - **Personal Notes** - Add notes for each manga
 - **Status Tracking** - Mark manga as "Reading" or "Completed"
+- **Reading Language** - Track and display the language of each manga with a flag badge
+- **Search Bar** - Real-time search filtering by title or personal notes
 - **Responsive Design** - Works on desktop and mobile devices
 - **Statistics Dashboard** - View your collection stats at a glance
 
@@ -39,11 +42,18 @@ CREATE TABLE mangas (
     reading_link VARCHAR(500) NOT NULL,
     current_chapter VARCHAR(100) NOT NULL,
     status ENUM('reading', 'completed') DEFAULT 'reading',
+    language VARCHAR(10) DEFAULT 'fr',
     notes TEXT,
     date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     date_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
+
+> **Upgrading from v1.0.0?** Run this migration to add the language column:
+> ```sql
+> ALTER TABLE mangas ADD COLUMN language VARCHAR(10) DEFAULT 'fr' AFTER status;
+> UPDATE mangas SET language = 'fr' WHERE language IS NULL;
+> ```
 
 3. Create the `manga_chapters` table:
 ```sql
@@ -135,8 +145,14 @@ Run `check_php_config.php` to verify your setup:
    - Reading link (required)
    - Current chapter (required)
    - Status (reading/completed)
+   - Reading language (flag badge displayed on card)
    - Personal notes (optional)
 3. Click "Save"
+
+### Search
+- Use the search bar above the manga grid to filter in real time
+- Searches across both **title** and **personal notes**
+- Click ✕ to clear the search and restore the full collection
 
 ### Manage Chapters
 1. Click the 📦 icon on any manga card
@@ -183,5 +199,5 @@ For questions or issues, please check the troubleshooting section or review the 
 
 ---
 
-**Version:** 1.0.0  
-**Last Updated:** January 2026
+**Version:** 1.1.0  
+**Last Updated:** March 2026
