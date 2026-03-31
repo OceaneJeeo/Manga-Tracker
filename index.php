@@ -72,6 +72,7 @@ if (isset($_GET['logout'])) {
                 <div class="logo">📚 MangaTracker</div>
                 <div class="navbar-actions">
                     <span class="user-info">My personal collection</span>
+                    <button class="btn-theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
                     <a href="?logout" class="btn-logout">🚪 Logout</a>
                 </div>
             </div>
