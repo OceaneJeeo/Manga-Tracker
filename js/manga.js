@@ -5,6 +5,46 @@
  * It includes loading, displaying, adding, editing, and deleting mangas, as well as managing chapters.
  */
 
+// ── Theme Management ──────────────────────────────────────────────────────────
+
+/**
+ * Initialises the theme on page load.
+ * Priority: localStorage > system preference (prefers-color-scheme).
+ */
+function initTheme() {
+    const saved = localStorage.getItem('mangaTrackerTheme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const useDark = saved ? saved === 'dark' : prefersDark;
+    applyTheme(useDark ? 'dark' : 'light');
+}
+
+/**
+ * Applies the given theme to the document.
+ * @param {'dark'|'light'} theme
+ */
+function applyTheme(theme) {
+    if (theme === 'light') {
+        document.body.classList.add('light-theme');
+    } else {
+        document.body.classList.remove('light-theme');
+    }
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = theme === 'light' ? '🌙' : '☀️';
+    btn && (btn.title = theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+}
+
+/**
+ * Toggles between dark and light themes and saves the preference.
+ */
+function toggleTheme() {
+    const isLight = document.body.classList.contains('light-theme');
+    const next = isLight ? 'dark' : 'light';
+    localStorage.setItem('mangaTrackerTheme', next);
+    applyTheme(next);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 let mangas = [];
 let deleteId = null;
 let currentMangaChapters = null;
@@ -31,6 +71,7 @@ const languageFlags = {
  * Loads mangas on page load.
  */
 document.addEventListener('DOMContentLoaded', function() {
+    initTheme();
     loadMangas();
 });
 
