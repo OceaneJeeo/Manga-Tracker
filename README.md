@@ -4,27 +4,28 @@ A personal manga collection management system built with PHP, MySQL, and vanilla
 
 ## ✨ Features
 
-- **Secure Authentication** - Password-protected access to your collection
-- **Manga Management** - Add, edit, and delete manga entries
-- **Chapter Upload System** - Upload and manage manga chapters as ZIP files
-- **Chapter Count Badge** - See at a glance how many chapters are archived locally for each manga
-- **Reading Progress** - Track current chapter and reading status
-- **Image Support** - Upload cover images or use external URLs
-- **Personal Notes** - Add notes for each manga
-- **Status Tracking** - Mark manga as "Reading" or "Completed"
-- **Reading Language** - Track and display the language of each manga with a flag badge
-- **Search Bar** - Real-time search filtering by title or personal notes
-- **Responsive Design** - Works on desktop and mobile devices
-- **Statistics Dashboard** - View your collection stats at a glance
+- **Secure Authentication** – Password-protected access to your collection  
+- **Manga Management** – Add, edit, and delete manga entries  
+- **Chapter Upload System** – Upload and manage manga chapters as ZIP files  
+- **Chapter Count Badge** – See at a glance how many chapters are archived locally for each manga  
+- **Reading Progress** – Track current chapter and reading status  
+- **Image Support** – Upload cover images or use external URLs  
+- **Personal Notes** – Add notes for each manga  
+- **Status Tracking** – Mark manga as "Reading" or "Completed"  
+- **Reading Language** – Track and display the language of each manga with a flag badge  
+- **Search Bar** – Real-time search filtering by title or personal notes  
+- **Light/Dark Theme Toggle** – Switch between light and dark mode with instant transitions and persistent user preference  
+- **Responsive Design** – Works on desktop and mobile devices  
+- **Statistics Dashboard** – View your collection stats at a glance  
 
 ## 🚀 Installation
 
 ### Prerequisites
 
-- PHP 7.4 or higher
-- MySQL 5.7 or higher
-- Apache/Nginx web server
-- Minimum 512MB PHP memory limit
+- PHP 7.4 or higher  
+- MySQL 5.7 or higher  
+- Apache/Nginx web server  
+- Minimum 512MB PHP memory limit  
 
 ### Database Setup
 
@@ -137,6 +138,12 @@ Run `check_php_config.php` to verify your setup:
 1. Navigate to `index.php`
 2. Enter your password (default: `manga2024`)
 
+### Theme Toggle
+1. Use the ☀️/🌙 button in the top bar to switch between light and dark mode
+2. The theme updates instantly without reloading the page
+3. Your preference is saved automatically and restored on your next visit
+4. If no preference is saved, the site follows your system theme
+
 ### Add a Manga
 1. Click "Add a manga" button
 2. Fill in the required fields:
@@ -199,5 +206,5 @@ For questions or issues, please check the troubleshooting section or review the 
 
 ---
 
-**Version:** 1.1.0  
+**Version:** 1.2.0  
 **Last Updated:** March 2026
