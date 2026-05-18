@@ -11,6 +11,7 @@ A personal manga collection management system built with PHP, MySQL, and vanilla
 - **Reading Progress** – Track current chapter and reading status  
 - **Image Support** – Upload cover images or use external URLs  
 - **Personal Notes** – Add notes for each manga  
+- **Star Rating** – Rate each manga from 0 to 5 stars  
 - **Status Tracking** – Mark manga as "Reading" or "Completed"  
 - **Reading Language** – Track and display the language of each manga with a flag badge  
 - **Search Bar** – Real-time search filtering by title or personal notes  
@@ -45,16 +46,23 @@ CREATE TABLE mangas (
     status ENUM('reading', 'completed') DEFAULT 'reading',
     language VARCHAR(10) DEFAULT 'fr',
     notes TEXT,
+    rating TINYINT UNSIGNED DEFAULT 0,
     date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     date_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-> **Upgrading from v1.0.0?** Run this migration to add the language column:
+> **Upgrading from v1.0.0?** Run this migration to add the `language` column:
 > ```sql
 > ALTER TABLE mangas ADD COLUMN language VARCHAR(10) DEFAULT 'fr' AFTER status;
 > UPDATE mangas SET language = 'fr' WHERE language IS NULL;
 > ```
+
+> **Upgrading from v1.1.0?** Run this migration to add the `rating` column:
+> ```sql
+> ALTER TABLE mangas ADD COLUMN rating TINYINT UNSIGNED DEFAULT 0 AFTER notes;
+> ```
+> The application also handles this migration automatically on first run.
 
 3. Create the `manga_chapters` table:
 ```sql
@@ -96,7 +104,7 @@ manga-tracker/
 
 ### Configuration
 
-1. **Database Connection** - Edit `config/mysql.php`:
+1. **Database Connection** – Edit `config/mysql.php`:
 ```php
 $mysql_host = 'localhost';
 $mysql_user = 'your_username';
@@ -104,20 +112,20 @@ $mysql_password = 'your_password';
 $mysql_dbname = 'manga_collection';
 ```
 
-2. **Password Setup** - The default password is `manga2024`. To change it:
+2. **Password Setup** – The default password is `manga2024`. To change it:
    - Generate a new hash:
    ```php
    echo password_hash('your_new_password', PASSWORD_DEFAULT);
    ```
    - Update the hash in `index.php` (line 16)
 
-3. **Directory Permissions** - Ensure these directories are writable:
+3. **Directory Permissions** – Ensure these directories are writable:
 ```bash
 chmod 755 img/manga/
 chmod 755 archives/chapters/
 ```
 
-4. **PHP Configuration** - The `.htaccess` file sets:
+4. **PHP Configuration** – The `.htaccess` file sets:
    - upload_max_filesize: 210M
    - post_max_size: 220M
    - max_execution_time: 300s
@@ -154,6 +162,7 @@ Run `check_php_config.php` to verify your setup:
    - Status (reading/completed)
    - Reading language (flag badge displayed on card)
    - Personal notes (optional)
+   - Rating from 0 to 5 (optional)
 3. Click "Save"
 
 ### Search
@@ -192,6 +201,12 @@ Run `check_php_config.php` to verify your setup:
 - Verify image directory permissions
 - Ensure images are valid formats (JPEG, PNG, GIF, WebP)
 
+### Rating Column Missing
+If you see a database error related to the `rating` column, the automatic migration should handle it on first request. If the issue persists, run the migration manually:
+```sql
+ALTER TABLE mangas ADD COLUMN rating TINYINT UNSIGNED DEFAULT 0 AFTER notes;
+```
+
 ## 📝 License
 
 This project is open source and available for personal use.
@@ -207,4 +222,4 @@ For questions or issues, please check the troubleshooting section or review the 
 ---
 
 **Version:** 1.2.0  
-**Last Updated:** March 2026
+**Last Updated:** May 2026

@@ -1,14 +1,12 @@
 <?php
-/**
- * Delete Manga Script
- *
- * This script deletes a manga from the database and removes its associated image file if it exists locally.
- * It requires user authentication.
- */
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="delete_manga.php" company="Jeeo Corporation">
+// Copyright (c) Jeeo Corporation. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
 session_start();
 header('Content-Type: application/json; charset=UTF-8');
-
 require_once __DIR__ . '/config/mysql.php';
 
 /**
@@ -20,6 +18,10 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
     exit;
 }
 
+/**
+ * Handle manga deletion.
+ * Deletes the manga record from the database and removes the associated image if it's stored locally.
+ */
 try {
     /**
      * @var int $id The ID of the manga to delete.
