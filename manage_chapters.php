@@ -1,11 +1,16 @@
 <?php
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="manage_chapters.php" company="Jeeo Corporation">
+// Copyright (c) Jeeo Corporation. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 /**
  * Chapter Management Script
  *
  * This script handles uploading, listing, and deleting manga chapters.
  * It processes form data for chapter uploads, retrieves chapter lists, and removes chapters from the database and filesystem.
  */
-
 session_start();
 header('Content-Type: application/json; charset=UTF-8');
 

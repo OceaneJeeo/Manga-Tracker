@@ -1,12 +1,9 @@
 <?php
-
-/**
- * MySQL Database Configuration
- *
- * This file establishes a connection to the MySQL database using PDO.
- * It defines the database host, username, password, and database name.
- * If the connection fails, it terminates the script with an error message.
- */
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="mysql.php" company="Jeeo Corporation">
+// Copyright (c) Jeeo Corporation. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 
 $mysql_host = 'localhost';
 $mysql_user = 'root';
@@ -23,7 +20,6 @@ $mysql_dbname = 'manga_collection';
 * - Character set to UTF-8MB4.
 */
 try {
-
     $pdo = new PDO(
         "mysql:host=$mysql_host;dbname=$mysql_dbname;charset=utf8mb4",
         $mysql_user,
@@ -34,7 +30,6 @@ try {
         ]
     );
 } catch (PDOException $e) {
-
     die("Erreur de connexion : " . $e->getMessage());
 }
 ?>
